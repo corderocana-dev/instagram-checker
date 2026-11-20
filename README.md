@@ -87,11 +87,16 @@ El contador de tu perfil **no cuenta** las cuentas desactivadas temporalmente, s
 ```
 instagram-checker/
 ├── src/
-│   ├── web/index.html   # La aplicación: interfaz y toda la lógica de análisis
-│   └── servidor.js      # Servidor local mínimo que abre la app en el navegador
+│   ├── web/
+│   │   ├── index.html   # Estructura de la página
+│   │   ├── estilos.css  # Estilos (modo claro y oscuro)
+│   │   └── app.js       # Lógica: lectura de archivos, análisis y listas
+│   └── servidor.js      # Servidor local mínimo que entrega la app y abre el navegador
 ├── docs/                # Capturas del README
 └── package.json
 ```
+
+El código está separado en **estructura (HTML), estilos (CSS) y lógica (JavaScript)**. El servidor solo entrega esos tres archivos: nada más del ordenador es accesible desde el navegador.
 
 ## 👤 Autor
 

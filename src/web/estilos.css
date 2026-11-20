@@ -1,0 +1,331 @@
+/* Estilos de Instagram Checker */
+
+:root {
+    --fondo: #f6f5fb;
+    --tarjeta: #ffffff;
+    --texto: #1d1b29;
+    --suave: #6c6a7d;
+    --borde: #e6e3f0;
+    --degradado: linear-gradient(135deg, #f58529, #dd2a7b 50%, #8134af);
+    --acento: #dd2a7b;
+    --ok: #1e8a4a;
+    --error: #c0392b;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fondo: #121118;
+        --tarjeta: #1d1b27;
+        --texto: #f1effa;
+        --suave: #a3a0b5;
+        --borde: #2e2b3c;
+        --ok: #5fd08f;
+        --error: #ff8a7a;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+header {
+    background: var(--degradado);
+    color: #fff;
+    padding: 2.5rem 1.25rem 4.5rem;
+}
+
+.contenedor { max-width: 1000px; margin: 0 auto; }
+
+header h1 { margin: 0 0 0.4rem; font-size: clamp(1.7rem, 4vw, 2.4rem); }
+header p { margin: 0; opacity: 0.92; }
+
+main { padding: 0 1.25rem 3rem; margin-top: -3rem; }
+
+.tarjeta {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1.25rem;
+}
+
+h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+.descripcion { margin: 0 0 1rem; color: var(--suave); font-size: 0.92rem; }
+
+/* ---------- SUBIDA DE ARCHIVOS ---------- */
+.zonas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.zona {
+    position: relative;
+    border: 2px dashed var(--borde);
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.zona:hover,
+.zona.encima {
+    border-color: var(--acento);
+    background: rgba(221, 42, 123, 0.05);
+}
+
+.zona input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.zona-icono { font-size: 1.8rem; }
+/* Encima del selector de archivos invisible que cubre la zona, para poder pulsarlo */
+.boton-carpeta { position: relative; z-index: 1; margin-top: 0.6rem; padding: 0.35rem 0.8rem; font-size: 0.85rem; }
+.zona strong { display: block; margin: 0.3rem 0; }
+.zona small { display: block; color: var(--suave); }
+
+.archivos {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.archivos li { display: flex; gap: 0.4rem; align-items: baseline; }
+.archivos .ok { color: var(--ok); }
+.archivos .error { color: var(--error); }
+.archivos .ignorado { color: var(--suave); }
+
+.acciones-subida {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: center;
+}
+
+details { margin-top: 1rem; font-size: 0.9rem; color: var(--suave); }
+details summary { cursor: pointer; font-weight: 600; color: var(--texto); }
+details ol { margin: 0.6rem 0 0; padding-left: 1.25rem; line-height: 1.7; }
+
+/* ---------- CIFRAS ---------- */
+.cifras {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.cifra {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+}
+
+.cifra span { display: block; color: var(--suave); font-size: 0.82rem; font-weight: 600; }
+.cifra strong { font-size: 1.9rem; }
+
+.cifra.destacada strong {
+    background: var(--degradado);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ---------- LISTAS ---------- */
+.pestanas { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+.pestanas button {
+    border: 1px solid var(--borde);
+    background: transparent;
+    color: var(--suave);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pestanas button.activa { background: var(--degradado); border-color: transparent; color: #fff; }
+.pestanas button .num { opacity: 0.75; font-weight: 500; }
+
+.herramientas { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+
+.herramientas input {
+    flex: 1 1 220px;
+    height: 44px;
+    padding: 0 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--fondo);
+    color: var(--texto);
+    font: inherit;
+}
+
+.herramientas input:focus { outline: 2px solid var(--acento); border-color: transparent; }
+
+.boton {
+    height: 44px;
+    padding: 0 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--tarjeta);
+    color: var(--texto);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton:hover { border-color: var(--acento); color: var(--acento); }
+
+.boton-principal {
+    background: var(--degradado);
+    border-color: transparent;
+    color: #fff;
+}
+
+.boton-principal:hover { color: #fff; opacity: 0.9; }
+
+.explicacion {
+    margin: 0 0 0.9rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    background: var(--fondo);
+    color: var(--suave);
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.contador { color: var(--suave); font-size: 0.9rem; margin: 0 0 0.75rem; }
+
+.lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.6rem;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    min-width: 0;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--degradado);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.avatar.gris { background: var(--suave); }
+
+.info { flex: 1; min-width: 0; }
+
+.nombre {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.detalle { display: block; color: var(--suave); font-size: 0.78rem; }
+
+.antiguo { color: var(--suave); font-weight: 500; }
+
+.etiqueta {
+    display: inline-block;
+    margin-top: 0.2rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.etiqueta.mal { background: rgba(192, 57, 43, 0.12); color: var(--error); }
+.etiqueta.bien { background: rgba(30, 138, 74, 0.12); color: var(--ok); }
+.etiqueta.neutra { background: var(--fondo); color: var(--suave); }
+
+.usuario a {
+    flex-shrink: 0;
+    color: var(--acento);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.usuario a:hover { text-decoration: underline; }
+
+.acciones-usuario { display: flex; gap: 0.35rem; margin-top: 0.35rem; flex-wrap: wrap; }
+
+.mini {
+    border: 1px solid var(--borde);
+    background: transparent;
+    color: var(--suave);
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mini:hover { border-color: var(--acento); color: var(--acento); }
+
+.grupo-extra { margin: -0.25rem 0 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--borde); }
+.grupo-extra > span { display: block; margin-bottom: 0.5rem; color: var(--suave); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.grupo-extra .pestanas { margin-bottom: 0; }
+.grupo-extra .pestanas button { padding: 0.4rem 0.8rem; font-size: 0.88rem; }
+
+details ol ol { margin-top: 0.2rem; list-style: lower-alpha; }
+
+.vacio { grid-column: 1 / -1; padding: 2rem; text-align: center; color: var(--suave); }
+
+.oculto { display: none !important; }
+
+.aviso {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    background: #1d1b29;
+    color: #fff;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.aviso.visible { opacity: 1; }
+
+footer { text-align: center; color: var(--suave); font-size: 0.85rem; padding: 0 1.25rem 2rem; }

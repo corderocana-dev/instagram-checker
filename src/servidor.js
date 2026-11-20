@@ -10,12 +10,23 @@ const { exec } = require('child_process');
 
 const PUERTO = Number(process.env.PORT) || 4000;
 const URL = `http://localhost:${PUERTO}`;
-const PAGINA = path.join(__dirname, 'web', 'index.html');
+const CARPETA_WEB = path.join(__dirname, 'web');
+
+// Solo se entregan estos archivos (lista cerrada: nada más del ordenador es accesible)
+const ARCHIVOS = {
+  '/': { archivo: 'index.html', tipo: 'text/html; charset=utf-8' },
+  '/index.html': { archivo: 'index.html', tipo: 'text/html; charset=utf-8' },
+  '/estilos.css': { archivo: 'estilos.css', tipo: 'text/css; charset=utf-8' },
+  '/app.js': { archivo: 'app.js', tipo: 'text/javascript; charset=utf-8' },
+};
 
 const servidor = http.createServer((req, res) => {
-  if (req.url === '/' || req.url === '/index.html') {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    return fs.createReadStream(PAGINA).pipe(res);
+  const ruta = req.url.split('?')[0];
+  const encontrado = ARCHIVOS[ruta];
+
+  if (encontrado) {
+    res.writeHead(200, { 'Content-Type': encontrado.tipo });
+    return fs.createReadStream(path.join(CARPETA_WEB, encontrado.archivo)).pipe(res);
   }
 
   res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
