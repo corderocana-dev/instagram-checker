@@ -1,0 +1,15 @@
+{
+  "name": "instagram-checker",
+  "version": "1.0.0",
+  "description": "Analiza la exportación de datos de Instagram y muestra quién no te sigue de vuelta, solicitudes pendientes, cuentas eliminadas y más",
+  "main": "src/servidor.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/servidor.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Antonio Cordero Caña",
+  "license": "MIT"
+}

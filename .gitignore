@@ -1,0 +1,15 @@
+# Dependencias
+node_modules/
+
+# Exportaciones de Instagram: contienen datos personales, NUNCA se suben
+followers_and_following/
+connections/
+data/
+results/
+*.zip
+instagram-*/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
